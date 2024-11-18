@@ -1,0 +1,35 @@
+modelo:
+  version: api/v1
+  metadata:
+    name: null
+    author: Ed Scrimaglia
+    email: edscrimaglia@octupus.com
+    tags: null
+  specification:
+    environment:
+      repository: null
+      ssh_config_file: null
+      debug: false
+      ansible_command_timeout: 180
+      module_command_timeout: 1800
+      sleep_time: 50
+    resource:
+      device:
+        - nombre: null
+          familia: null
+          memoria: 2024
+          ip_address: 192.168.1.1
+          interface:
+            - tipo: GigabitEthernet
+              slot: 1
+              port: 1
+            - tipo: GigabitEthernet
+              slot: 1
+              port: 2
+          vlan:
+            - number: 1
+              name: Vlan Ingenieria
+            - number: 2
+              name: null
+      others:
+        - other: null

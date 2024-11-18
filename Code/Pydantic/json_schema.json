@@ -1,0 +1,397 @@
+{
+  "$defs": {
+    "Device": {
+      "additionalProperties": false,
+      "properties": {
+        "nombre": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "minLength": 6,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Nombre"
+        },
+        "familia": {
+          "anyOf": [
+            {
+              "maxLength": 50,
+              "minLength": 6,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Familia"
+        },
+        "memoria": {
+          "exclusiveMaximum": 8000,
+          "exclusiveMinimum": 2000,
+          "title": "Memoria",
+          "type": "integer"
+        },
+        "ipAddress": {
+          "anyOf": [
+            {
+              "format": "ipvanyaddress",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ipaddress"
+        },
+        "interface": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/Interface"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Interface"
+        },
+        "vlan": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/Vlan"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Vlan"
+        }
+      },
+      "required": [
+        "nombre",
+        "familia",
+        "memoria",
+        "ipAddress",
+        "interface",
+        "vlan"
+      ],
+      "title": "Device",
+      "type": "object"
+    },
+    "Environment": {
+      "additionalProperties": false,
+      "properties": {
+        "repository": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Repository"
+        },
+        "sshConfigFile": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Sshconfigfile"
+        },
+        "debug": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": false,
+          "title": "Debug"
+        },
+        "ansibleCommandTimeout": {
+          "default": 180,
+          "maximum": 180,
+          "minimum": 100,
+          "title": "Ansiblecommandtimeout",
+          "type": "integer"
+        },
+        "moduleCommandTimeout": {
+          "default": 1800,
+          "maximum": 1800,
+          "minimum": 100,
+          "title": "Modulecommandtimeout",
+          "type": "integer"
+        },
+        "sleepTime": {
+          "anyOf": [
+            {
+              "maximum": 180,
+              "minimum": 50,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 50,
+          "title": "Sleeptime"
+        }
+      },
+      "required": [
+        "repository",
+        "sshConfigFile"
+      ],
+      "title": "Environment",
+      "type": "object"
+    },
+    "Interface": {
+      "additionalProperties": false,
+      "properties": {
+        "tipo": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/InterfaceType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "GigabitEthernet"
+        },
+        "slot": {
+          "exclusiveMaximum": 2,
+          "exclusiveMinimum": 0,
+          "title": "Slot",
+          "type": "integer"
+        },
+        "port": {
+          "exclusiveMaximum": 3,
+          "exclusiveMinimum": 0,
+          "title": "Port",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "slot",
+        "port"
+      ],
+      "title": "Interface",
+      "type": "object"
+    },
+    "InterfaceType": {
+      "enum": [
+        "GigabitEthernet",
+        "FastEthernet",
+        "PortChannel"
+      ],
+      "title": "InterfaceType",
+      "type": "string"
+    },
+    "Metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Name"
+        },
+        "author": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "Ed Scrimaglia",
+          "title": "Author"
+        },
+        "email": {
+          "anyOf": [
+            {
+              "format": "email",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "edscrimaglia@octupus.com",
+          "title": "Email"
+        },
+        "tags": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Tags"
+        }
+      },
+      "required": [
+        "name",
+        "tags"
+      ],
+      "title": "Metadata",
+      "type": "object"
+    },
+    "Modelo": {
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "api/v1",
+          "title": "Version"
+        },
+        "metadata": {
+          "$ref": "#/$defs/Metadata"
+        },
+        "specification": {
+          "$ref": "#/$defs/Specification"
+        }
+      },
+      "required": [
+        "metadata",
+        "specification"
+      ],
+      "title": "Modelo",
+      "type": "object"
+    },
+    "Others": {
+      "additionalProperties": false,
+      "properties": {
+        "other": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Other"
+        }
+      },
+      "title": "Others",
+      "type": "object"
+    },
+    "Resource": {
+      "additionalProperties": false,
+      "properties": {
+        "device": {
+          "items": {
+            "$ref": "#/$defs/Device"
+          },
+          "title": "Device",
+          "type": "array"
+        },
+        "others": {
+          "items": {
+            "$ref": "#/$defs/Others"
+          },
+          "title": "Others",
+          "type": "array"
+        }
+      },
+      "required": [
+        "device",
+        "others"
+      ],
+      "title": "Resource",
+      "type": "object"
+    },
+    "Specification": {
+      "additionalProperties": false,
+      "properties": {
+        "environment": {
+          "$ref": "#/$defs/Environment"
+        },
+        "resource": {
+          "$ref": "#/$defs/Resource"
+        }
+      },
+      "required": [
+        "environment",
+        "resource"
+      ],
+      "title": "Specification",
+      "type": "object"
+    },
+    "Vlan": {
+      "additionalProperties": false,
+      "properties": {
+        "number": {
+          "maximum": 4096,
+          "minimum": 0,
+          "title": "Number",
+          "type": "integer"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "maxLength": 20,
+              "minLength": 5,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "strip_whitespace": true,
+          "title": "Name"
+        }
+      },
+      "required": [
+        "number",
+        "name"
+      ],
+      "title": "Vlan",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "modelo": {
+      "$ref": "#/$defs/Modelo"
+    }
+  },
+  "required": [
+    "modelo"
+  ],
+  "title": "DataModel",
+  "type": "object"
+}

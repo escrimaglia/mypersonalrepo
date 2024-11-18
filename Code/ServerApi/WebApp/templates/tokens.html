@@ -1,0 +1,27 @@
+{% extends "home.html" %}
+
+{% block content %}
+<h3> Tabla API Tokens</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Token</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if cant_rec > 0 %}
+        {% for token in data %}
+        <tr class="letras">
+            <td>{{token.token}}</td>
+            <td>{{token.name}}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td>{{result}}</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}

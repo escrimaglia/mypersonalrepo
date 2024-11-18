@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+    <html lang="es">
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <title>API Server</title>
+        <meta name="description" content="Pagina Projecto API Server">
+        <meta name="author" content="Ed Scrimaglia">
+        <!-- Import Bootstrap -->
+        <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <!-- Our CSS -->
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    </head>
+
+    <body>
+        {# se incluye la pagina cabecera #}
+        {% include "cabecera.html" %}
+
+        <section>
+            <article>
+                <div class="container my-3">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 py-4 mt-5">
+                            {% block content %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article>
+                <div id="template_main" class="container-fluid">
+                    {% block main %}
+                    {% endblock %}
+                </div>
+            </article>
+        </section>
+
+        {# se incluye la pagina footer #}
+        {% include "footer.html" %}
+
+        <!-- Import Bootstrap JS-->
+        <script src="{% static 'bootstrap/bootstrap.bundle.min.js' %}" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </body>
+</html>
